@@ -1,0 +1,89 @@
+:root {
+  --bg: #121724;
+  --bg-deep: #07080b;
+  --panel: #1a2030;
+  --line: #2a3246;
+  --text: #ffffff;
+  --muted: #a7afc2;
+  --safe: #00d9bf;
+  --danger: #e6404d;
+  --trick: #f2b359;
+  --gold: #ffbf00;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--bg-deep); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(ellipse 120% 900px at 50% 0%, #1d2538 0%, var(--bg) 55%, var(--bg-deep) 100%) no-repeat, var(--bg-deep);
+  color: var(--text);
+  font-family: "Cairo", system-ui, -apple-system, sans-serif;
+  font-weight: 600;
+  line-height: 1.6;
+}
+a { color: var(--safe); }
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 20px; }
+
+/* top bar */
+.bar { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
+.bar .mark { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 900; letter-spacing: .08em; }
+.bar .mark img { width: 36px; height: 36px; border-radius: 9px; }
+.lang {
+  background: var(--panel); color: var(--text); border: 1px solid var(--line);
+  border-radius: 999px; padding: 6px 16px; font: inherit; font-weight: 800; cursor: pointer;
+}
+
+/* hero */
+.hero { text-align: center; padding: 48px 0 28px; }
+.hero .logo { width: min(560px, 86vw); height: auto; display: block; margin: 0 auto 18px; }
+.hero h1 { font-size: clamp(26px, 5vw, 40px); font-weight: 900; margin: 0 0 6px; line-height: 1.25; }
+.hero h1 span { color: var(--danger); }
+.hero p { color: var(--muted); font-size: 18px; margin: 0 auto 28px; max-width: 560px; }
+.cta {
+  display: inline-block; background: var(--safe); color: #07080b; text-decoration: none;
+  font-weight: 900; font-size: 18px; padding: 14px 34px; border-radius: 999px;
+  box-shadow: 0 8px 30px rgba(0, 217, 191, .25);
+}
+.cta.soon { background: var(--panel); color: var(--muted); box-shadow: none; border: 1px solid var(--line); }
+
+/* tiles strip */
+.tiles { display: flex; justify-content: center; gap: 8px; margin: 34px 0 0; }
+.tiles i { width: 22px; height: 22px; border-radius: 6px; background: var(--safe); display: block; }
+.tiles i.d { background: var(--danger); }
+.tiles i.t { background: var(--trick); }
+.tiles i.g { background: var(--gold); }
+
+/* screenshots */
+.shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 36px 0; }
+.shots img { width: 100%; height: auto; border-radius: 18px; border: 1px solid var(--line); display: block; }
+@media (max-width: 640px) {
+  .shots { grid-template-columns: repeat(3, 72%); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 12px; }
+  .shots img { scroll-snap-align: center; }
+}
+
+/* features */
+.features { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; padding: 8px 0 40px; }
+.feature { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; }
+.feature b { display: block; font-size: 17px; font-weight: 900; margin-bottom: 2px; }
+.feature span { color: var(--muted); font-size: 15px; }
+.feature .dot { width: 14px; height: 14px; border-radius: 4px; display: inline-block; margin-bottom: 8px; }
+
+/* footer */
+footer { border-top: 1px solid var(--line); padding: 22px 0 40px; color: var(--muted); font-size: 14px; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+footer a { color: var(--muted); }
+
+/* policy page */
+.doc { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 28px clamp(18px, 4vw, 40px); margin: 20px 0 40px; font-weight: 500; }
+.doc h1 { font-size: 30px; font-weight: 900; margin: 0 0 4px; }
+.doc h2 { font-size: 20px; font-weight: 900; margin: 28px 0 6px; color: var(--safe); }
+.doc .meta { color: var(--muted); margin: 0 0 18px; }
+.doc ul { padding-inline-start: 22px; }
+.doc li { margin: 4px 0; }
+
+/* language switching */
+[dir="rtl"] body, body[dir="rtl"] { font-weight: 700; }
+.ar { display: none !important; }
+html[lang="ar"] .ar { display: block !important; }
+html[lang="ar"] span.ar, html[lang="ar"] a.ar { display: inline !important; }
+html[lang="ar"] .en { display: none !important; }
