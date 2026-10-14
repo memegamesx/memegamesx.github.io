@@ -3,166 +3,112 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Omama Games — Small, polished mobile games</title>
-<meta name="description" content="Mobile games by Omama Sabbagh: PEVOT, a fast reflex tap game, and MINO Grid, a calm sliding-tile puzzle.">
+<title>Omama Games — Small games, made with care.</title>
+<meta name="description" content="Mobile games by Omama Sabbagh: PEVOT, MINO Grid.">
 <meta name="theme-color" content="#f6f5f1">
 <meta property="og:title" content="Omama Games">
-<meta property="og:description" content="PEVOT and MINO Grid — mobile games by Omama Sabbagh.">
-<meta property="og:image" content="https://omamafs.github.io/mino-grid/assets/img/og.png">
-<link rel="icon" href="mino-grid/assets/img/favicon-64.png">
+<meta property="og:description" content="Small games, made with care.">
+<meta property="og:image" content="https://omamafs.github.io/shared/og.png">
+<link rel="icon" type="image/svg+xml" href="/shared/logo.svg">
+<link rel="icon" type="image/png" href="/shared/favicon-64.png">
+<link rel="apple-touch-icon" href="/shared/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/shared/footer.css">
 <style>
-  :root {
-    --bg: #f6f5f1;
-    --ink: #22211f;
-    --muted: #6f6d67;
-    --line: #e6e2dc;
-    color-scheme: light;
-  }
+  :root { --bg: #f6f5f1; --ink: #22211f; --muted: #6f6d67; --line: #e6e2dc; color-scheme: light; }
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
-  body {
-    margin: 0; background: var(--bg); color: var(--ink);
-    font: 600 17px/1.6 "Cairo", system-ui, -apple-system, sans-serif;
-  }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 600 17px/1.6 "Cairo", system-ui, -apple-system, sans-serif; }
   a { color: inherit; }
-  :focus-visible { outline: 3px solid #6d3f84; outline-offset: 3px; border-radius: 10px; }
-  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
-
-  /* language: show only the active one */
-  html[lang="en"] .ar, html[lang="ar"] .en { display: none !important; }
-
+  :focus-visible { outline: 3px solid #ff7a59; outline-offset: 3px; border-radius: 10px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+  html[lang="en"] main .ar, html[lang="ar"] main .en { display: none !important; }
   .bar { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; }
-  .brand { font-weight: 900; font-size: 19px; letter-spacing: .02em; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-  .brand i { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; width: 26px; height: 26px; }
-  .brand i b { border-radius: 3px; }
-  .lang {
-    background: #fff; color: var(--ink); border: 1px solid var(--line);
-    border-radius: 999px; padding: 6px 18px; font: inherit; font-weight: 800; cursor: pointer;
-  }
-  .lang:hover { border-color: #cfc9c1; }
-
+  .brand { font-weight: 900; font-size: 19px; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .brand img { width: 34px; height: 34px; }
+  .lang { background: #fff; color: var(--ink); border: 1px solid var(--line); border-radius: 999px; padding: 6px 18px; font: inherit; font-weight: 800; cursor: pointer; }
   .intro { padding: 48px 0 40px; max-width: 640px; }
   h1 { font-size: clamp(36px, 6vw, 58px); line-height: 1.1; margin: 0 0 14px; font-weight: 900; letter-spacing: -.01em; }
   html[lang="ar"] h1 { line-height: 1.35; letter-spacing: 0; }
   .intro p { color: var(--muted); font-size: 19px; margin: 0; }
-
   .games { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; padding-bottom: 64px; }
-  .game {
-    border-radius: 30px; padding: 30px; display: flex; flex-direction: column; gap: 18px;
-    min-height: 360px; position: relative; overflow: hidden;
-  }
+  .game { background: var(--g-bg); color: var(--g-ink); border-radius: 30px; padding: 30px; display: flex; flex-direction: column; gap: 18px; min-height: 360px; position: relative; overflow: hidden; }
   .game > *:not(.tiles) { position: relative; z-index: 1; }
-  .game .desc { max-width: 82%; }
   .game header { display: flex; align-items: center; gap: 16px; }
   .game header img { width: 76px; height: 76px; border-radius: 18px; flex: none; box-shadow: 0 10px 24px -10px rgba(0,0,0,.45); }
   .game h2 { margin: 0; font-size: 28px; font-weight: 900; line-height: 1.15; }
   .game .genre { font-size: 14px; opacity: .75; font-weight: 700; }
+  .game .status { font-size: 13px; font-weight: 800; padding: 4px 12px; border-radius: 999px; align-self: flex-start; color: var(--g-status); background: color-mix(in srgb, var(--g-status) 14%, transparent); }
   .game .tag { font-size: 24px; font-weight: 800; line-height: 1.3; margin: 0; }
-  .game .desc { margin: 0; font-size: 16px; opacity: .82; }
-  .game .status { display: inline-block; font-size: 13px; font-weight: 800; padding: 4px 12px; border-radius: 999px; align-self: flex-start; }
+  .game .tag span span { color: var(--g-hi); }
+  .game .desc { margin: 0; font-size: 16px; opacity: .82; max-width: 82%; }
   .actions { margin-top: auto; display: flex; flex-wrap: wrap; gap: 10px; }
   .btn { text-decoration: none; font-weight: 800; font-size: 15px; padding: 11px 22px; border-radius: 999px; transition: transform .15s ease; }
   .btn:hover { transform: translateY(-2px); }
-
-  /* PEVOT — its own dark look */
-  .pevot { background: radial-gradient(120% 90% at 50% 0%, #222b40 0%, #121724 60%, #07080b 100%); color: #fff; }
-  .pevot .tag span { color: #e6404d; }
-  .pevot .status { background: rgba(0, 217, 191, .14); color: #00d9bf; }
-  .pevot .btn.primary { background: #00d9bf; color: #04201d; }
-  .pevot .btn.ghost { box-shadow: inset 0 0 0 1.5px #2a3246; color: #fff; }
-  .pevot .tiles { position: absolute; z-index: 0; inset-inline-end: -64px; bottom: -64px; display: grid; grid-template-columns: repeat(3, 44px); gap: 8px; opacity: .22; pointer-events: none; }
-  .pevot .tiles i { height: 44px; border-radius: 10px; background: #00d9bf; }
-  .pevot .tiles i:nth-child(3) { background: #f2b359; } .pevot .tiles i:nth-child(5) { background: #e6404d; } .pevot .tiles i:nth-child(8) { background: #ffbf00; }
-
-  /* MINO Grid — its own pastel look */
-  .mino { background: linear-gradient(150deg, #f6e4f3 0%, #ece6fa 55%, #e2ecfb 100%); color: #2b2b28; }
-  .mino .status { background: rgba(109, 63, 132, .12); color: #6d3f84; }
-  .mino .btn.primary { background: #d6a2e8; color: #33173f; }
-  .mino .btn.ghost { box-shadow: inset 0 0 0 1.5px #c9a6d8; }
-  .mino .tiles { position: absolute; z-index: 0; inset-inline-end: -64px; bottom: -64px; display: grid; grid-template-columns: repeat(3, 46px); gap: 8px; opacity: .45; pointer-events: none; }
-  .mino .tiles i { height: 46px; border-radius: 22%; }
-
-  footer { border-top: 1px solid var(--line); padding: 26px 0 42px; color: var(--muted); font-size: 14px; }
-  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; }
-  footer a { text-decoration: none; } footer a:hover { text-decoration: underline; }
-
-  @media (max-width: 820px) {
-    .games { grid-template-columns: 1fr; }
-    .game { min-height: 0; }
-    .intro { padding-top: 24px; }
-  }
+  .btn.primary { background: var(--g-accent); color: var(--g-on); }
+  .btn.ghost { box-shadow: inset 0 0 0 1.5px var(--g-ghost); }
+  .tiles { position: absolute; z-index: 0; inset-inline-end: -64px; bottom: -64px; display: grid; grid-template-columns: repeat(3, 44px); gap: 8px; opacity: var(--g-tiles); pointer-events: none; }
+  .tiles i { height: 44px; border-radius: 22%; }
+  @media (max-width: 820px) { .games { grid-template-columns: 1fr; } .game { min-height: 0; } .intro { padding-top: 24px; } }
   @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
 </style>
 </head>
 <body>
+<main>
 <div class="wrap">
   <div class="bar">
-    <a class="brand" href="./"><i aria-hidden="true"><b style="background:#d6a2e8"></b><b style="background:#00d9bf"></b><b style="background:#a9cef4"></b><b style="background:#f2b359"></b></i>Omama Games</a>
+    <a class="brand" href="/"><img src="/shared/logo.svg" alt="">Omama Games</a>
     <button class="lang" id="langBtn" type="button">عربي</button>
   </div>
-
   <section class="intro">
-    <h1 class="en">Small games, made with care.</h1>
-    <h1 class="ar">ألعاب صغيرة، مصنوعة بعناية.</h1>
-    <p class="en">Quick to pick up, hard to put down. Every game plays offline and speaks English and Arabic.</p>
-    <p class="ar">سهلة البدء وصعبة التوقف. كل الألعاب تعمل دون إنترنت وتدعم العربية والإنجليزية.</p>
+    <h1><span class="en">Small games, made with care.</span><span class="ar">ألعاب صغيرة، مصنوعة بعناية.</span></h1>
+    <p><span class="en">Quick to pick up, hard to put down. Every game plays offline and speaks English and Arabic.</span><span class="ar">سهلة البدء وصعبة التوقف. كل الألعاب تعمل دون إنترنت وتدعم العربية والإنجليزية.</span></p>
   </section>
-
   <section class="games">
-    <article class="game pevot">
+    <article class="game" style="--g-bg:radial-gradient(120% 90% at 50% 0%, #222b40 0%, #121724 60%, #07080b 100%);--g-ink:#ffffff;--g-accent:#00d9bf;--g-on:#04201d;--g-hi:#e6404d;--g-ghost:#2a3246;--g-tiles:0.22;--g-status:#00d9bf">
       <header>
-        <img src="img/icon.png" alt="" width="76" height="76">
+        <img src="/img/icon.png" alt="" width="76" height="76">
         <div><h2>PEVOT</h2><div class="genre"><span class="en">Reflex tap game</span><span class="ar">لعبة سرعة وردود فعل</span></div></div>
       </header>
       <span class="status"><span class="en">Coming soon to the App Store</span><span class="ar">قريباً على App Store</span></span>
       <p class="tag"><span class="en">One wrong tap <span>ends it all.</span></span><span class="ar">ضغطة خاطئة واحدة <span>تنهي كل شيء.</span></span></p>
       <p class="desc"><span class="en">Tap the safe tiles, dodge the tricksters, chain combos and unlock the Gold Glitch.</span><span class="ar">اضغط على المربعات الآمنة، تجنّب المخادعين، اجمع الكومبو وافتح Gold Glitch.</span></p>
       <div class="actions">
-        <a class="btn primary" href="pevot/"><span class="en">See PEVOT</span><span class="ar">اكتشف PEVOT</span></a>
-        <a class="btn ghost" href="privacy.html"><span class="en">Privacy</span><span class="ar">الخصوصية</span></a>
+        <a class="btn primary" href="/pevot/"><span class="en">See PEVOT</span><span class="ar">اكتشف PEVOT</span></a>
+        <a class="btn ghost" href="/privacy.html"><span class="en">Privacy</span><span class="ar">الخصوصية</span></a>
       </div>
-      <div class="tiles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="tiles" aria-hidden="true"><i style="background:#00d9bf"></i><i style="background:#00d9bf"></i><i style="background:#f2b359"></i><i style="background:#00d9bf"></i><i style="background:#e6404d"></i><i style="background:#00d9bf"></i><i style="background:#00d9bf"></i><i style="background:#ffbf00"></i><i style="background:#00d9bf"></i></div>
     </article>
-
-    <article class="game mino">
+    <article class="game" style="--g-bg:linear-gradient(150deg, #f6e4f3 0%, #ece6fa 55%, #e2ecfb 100%);--g-ink:#2b2b28;--g-accent:#d6a2e8;--g-on:#33173f;--g-hi:#2b2b28;--g-ghost:#c9a6d8;--g-tiles:0.45;--g-status:#6d3f84">
       <header>
-        <img src="mino-grid/assets/img/icon-512.png" alt="" width="76" height="76">
+        <img src="/mino-grid/assets/img/icon-512.png" alt="" width="76" height="76">
         <div><h2>MINO Grid</h2><div class="genre"><span class="en">Calm sliding-tile puzzle</span><span class="ar">لغز مربعات منزلقة هادئ</span></div></div>
       </header>
       <span class="status"><span class="en">Coming soon to the App Store</span><span class="ar">قريباً على App Store</span></span>
       <p class="tag"><span class="en">Slide the tiles. Match the goal.</span><span class="ar">حرّك المربعات. طابق الهدف.</span></p>
       <p class="desc"><span class="en">5,000 handcrafted levels across 50 chapters. No timers, no rush.</span><span class="ar">5,000 مرحلة في 50 فصلاً. بلا مؤقّت ولا استعجال.</span></p>
       <div class="actions">
-        <a class="btn primary" href="mino-grid/" data-ar-href="mino-grid/ar/"><span class="en">See MINO Grid</span><span class="ar">اكتشف MINO Grid</span></a>
-        <a class="btn ghost" href="mino-grid/privacy/" data-ar-href="mino-grid/ar/privacy/"><span class="en">Privacy</span><span class="ar">الخصوصية</span></a>
+        <a class="btn primary" href="/mino-grid/" data-ar-href="/mino-grid/ar/"><span class="en">See MINO Grid</span><span class="ar">اكتشف MINO Grid</span></a>
+        <a class="btn ghost" href="/mino-grid/privacy/" data-ar-href="/mino-grid/ar/privacy/"><span class="en">Privacy</span><span class="ar">الخصوصية</span></a>
       </div>
       <div class="tiles" aria-hidden="true"><i style="background:#d6a2e8"></i><i style="background:#f3a0d3"></i><i style="background:#a9cef4"></i><i style="background:#f7e5a9"></i><i style="background:#d6a2e8"></i><i style="background:#f3a0d3"></i><i style="background:#a9cef4"></i><i style="background:#f7e5a9"></i><i style="background:transparent"></i></div>
     </article>
   </section>
 </div>
-
-<footer>
-  <div class="wrap">
-    <span>© 2026 Omama Sabbagh</span>
-    <a href="mailto:omama.games@outlook.com">omama.games@outlook.com</a>
-  </div>
-</footer>
-
+</main>
+<!-- og-footer --><footer class="og-footer"><div class="og-wrap"><span class="og-left"><a class="og-home" href="/" aria-label="Omama Games"><img src="/shared/logo.svg" alt=""></a><span dir="ltr">© 2026 Omama Games</span></span><nav class="og-links" aria-label="Footer"><a href="mailto:omama.games@outlook.com"><span class="en">Contact</span><span class="ar">تواصل معنا</span></a></nav></div></footer><!-- /og-footer -->
 <script>
 (function () {
   var html = document.documentElement, btn = document.getElementById('langBtn');
-  var links = document.querySelectorAll('[data-ar-href]');
+  var links = document.querySelectorAll('main [data-ar-href]');
   for (var i = 0; i < links.length; i++) links[i].setAttribute('data-en-href', links[i].getAttribute('href'));
   function set(lang) {
     html.lang = lang; html.dir = lang === 'ar' ? 'rtl' : 'ltr';
     btn.textContent = lang === 'ar' ? 'EN' : 'عربي';
-    // MINO Grid has separate Arabic pages; point to them in Arabic.
     for (var i = 0; i < links.length; i++) links[i].setAttribute('href', links[i].getAttribute(lang === 'ar' ? 'data-ar-href' : 'data-en-href'));
-    // Shares PEVOT's saved choice so both sites remember the same language.
-    try { localStorage.setItem('pevot_lang', lang); } catch (e) {}
+    try { localStorage.setItem('pevot_lang', lang); } catch (e) {}  // same key as PEVOT's pages
   }
   var saved = null;
   try { saved = localStorage.getItem('pevot_lang'); } catch (e) {}

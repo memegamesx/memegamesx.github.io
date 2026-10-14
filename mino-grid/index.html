@@ -16,21 +16,24 @@
 <meta property="og:image" content="https://omamafs.github.io/mino-grid/assets/img/og.png">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" type="image/png" href="assets/img/favicon-64.png">
-<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="/mino-grid/assets/img/favicon-64.png">
+<link rel="apple-touch-icon" href="/mino-grid/assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700;800&display=swap">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="/shared/game.css">
+<link rel="stylesheet" href="/shared/footer.css">
+<style>:root { --bg: #f6f5f1; --card: #ffffff; --ink: #2b2b28; --ink-2: #5f5e58; --muted: #8d8d86; --line: #e7e4ea; --row: #f3eef5; --accent: #d6a2e8; --accent-on: #3a2147; --accent-ink: #6d3f84; --c1: #d6a2e8; --c2: #f3a0d3; --c3: #a9cef4; --c4: #f7e5a9; --c5: #a8e3c5; }</style>
+<link rel="stylesheet" href="/mino-grid/assets/hero.css">
 </head>
 <body>
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="./"><img src="assets/img/icon-512.png" alt="" width="40" height="40">MINO Grid</a>
-    <nav class="nav" aria-label="Home">
-      <a href="privacy/">Privacy</a>
+    <a class="brand" href="/mino-grid/"><img src="/mino-grid/assets/img/icon-512.png" alt="" width="40" height="40">MINO Grid</a>
+    <nav class="nav" aria-label="MINO Grid">
+      <a href="/mino-grid/privacy/">Privacy</a>
       <a href="mailto:omama.games@outlook.com">Contact</a>
-      <a class="lang" href="ar/" hreflang="ar" lang="ar">العربية</a>
+      <a class="lang" href="/mino-grid/ar/" hreflang="ar" lang="ar">العربية</a>
     </nav>
   </div>
 </header>
@@ -48,7 +51,7 @@
     </div>
     <div class="toy" role="group" aria-label="Playable demo: slide tiles to match the goal" data-moves="Moves: %d" data-hint="Tap a tile next to the gap." data-solved="Solved in %d moves ✨" data-lav="Lavender tile" data-rose="Rose tile" data-sky="Sky tile" data-slide="slide into the gap">
       <div class="toy-head">
-        <span class="goal"><span class="goal-grid" aria-hidden="true"><i style="background:var(--lav)"></i><i style="background:var(--lav)"></i><i style="background:var(--lav)"></i><i style="background:var(--rose)"></i><i style="background:var(--rose)"></i><i style="background:var(--rose)"></i><i style="background:var(--sky)"></i><i style="background:var(--sky)"></i><i style="background:transparent"></i></span>Goal</span>
+        <span class="goal"><span class="goal-grid" aria-hidden="true"><i style="background:var(--c1)"></i><i style="background:var(--c1)"></i><i style="background:var(--c1)"></i><i style="background:var(--c2)"></i><i style="background:var(--c2)"></i><i style="background:var(--c2)"></i><i style="background:var(--c3)"></i><i style="background:var(--c3)"></i><i style="background:transparent"></i></span>Goal</span>
         <span class="moves" aria-live="off"></span>
       </div>
       <div class="board" dir="ltr"><div class="board-inner"></div></div>
@@ -57,6 +60,7 @@
         <button class="btn ghost" type="button" data-shuffle>Shuffle</button>
       </div>
     </div>
+
   </div>
 </section>
 <section>
@@ -64,10 +68,10 @@
     <h2 class="section-title">Simple rules. Deep puzzles.</h2>
     <p class="section-sub">Every level gives you a goal and a move budget. Beat par to earn three stars and unlock new chapters and themes.</p>
     <div class="shots">
-      <div class="shot"><figure><img src="assets/img/shot-play.webp" alt="Match the goal — Locks and obstacles keep it fresh" width="540" height="1200" loading="lazy"><figcaption>Match the goal<span>Locks and obstacles keep it fresh</span></figcaption></figure></div>
-      <div class="shot"><figure><img src="assets/img/shot-wood.webp" alt="Unlock themes — Classic, Frosted Glass, Polished Wood" width="540" height="1200" loading="lazy"><figcaption>Unlock themes<span>Classic, Frosted Glass, Polished Wood</span></figcaption></figure></div>
-      <div class="shot"><figure><img src="assets/img/shot-chapters.webp" alt="50 chapters — From First Light to Grand Shift" width="540" height="1200" loading="lazy"><figcaption>50 chapters<span>From First Light to Grand Shift</span></figcaption></figure></div>
-      <div class="shot"><figure><img src="assets/img/shot-clear.webp" alt="Earn stars — Beat par for a perfect clear" width="540" height="1200" loading="lazy"><figcaption>Earn stars<span>Beat par for a perfect clear</span></figcaption></figure></div>
+      <div class="shot"><figure><img src="/mino-grid/assets/img/shot-play.webp" alt="Match the goal — Locks and obstacles keep it fresh" width="540" height="1200" loading="lazy"><figcaption>Match the goal<span>Locks and obstacles keep it fresh</span></figcaption></figure></div>
+      <div class="shot"><figure><img src="/mino-grid/assets/img/shot-wood.webp" alt="Unlock themes — Classic, Frosted Glass, Polished Wood" width="540" height="1200" loading="lazy"><figcaption>Unlock themes<span>Classic, Frosted Glass, Polished Wood</span></figcaption></figure></div>
+      <div class="shot"><figure><img src="/mino-grid/assets/img/shot-chapters.webp" alt="50 chapters — From First Light to Grand Shift" width="540" height="1200" loading="lazy"><figcaption>50 chapters<span>From First Light to Grand Shift</span></figcaption></figure></div>
+      <div class="shot"><figure><img src="/mino-grid/assets/img/shot-clear.webp" alt="Earn stars — Beat par for a perfect clear" width="540" height="1200" loading="lazy"><figcaption>Earn stars<span>Beat par for a perfect clear</span></figcaption></figure></div>
     </div>
   </div>
 </section>
@@ -75,21 +79,21 @@
   <div class="wrap">
     <h2 class="section-title" style="margin-bottom:32px">Made to be played a few minutes at a time</h2>
     <div class="features">
-      <div class="feature"><div class="chip" style="background:var(--lav)" aria-hidden="true">5K</div><h3>5,000 levels</h3><p>Fifty chapters of hand-tuned puzzles that slowly introduce locks, bigger 5×5 boards and new twists.</p></div>
-      <div class="feature"><div class="chip" style="background:var(--vanilla)" aria-hidden="true">★</div><h3>Stars, not stress</h3><p>No timers. Each level has a par; finish under it for three stars and unlock what's next.</p></div>
-      <div class="feature"><div class="chip" style="background:var(--rose)" aria-hidden="true">◆</div><h3>Three tile themes</h3><p>Start with soft pastels, then unlock Frosted Glass and Polished Wood as you collect stars.</p></div>
-      <div class="feature"><div class="chip" style="background:var(--sky)" aria-hidden="true">✈</div><h3>Plays offline</h3><p>Progress is saved on your device, so you can play on a flight, a train, anywhere.</p></div>
-      <div class="feature"><div class="chip" style="background:var(--mint)" aria-hidden="true">ع</div><h3>English & العربية</h3><p>Full Arabic support with a proper right-to-left layout.</p></div>
-      <div class="feature"><div class="chip" style="background:var(--lav)" aria-hidden="true">✕</div><h3>One-time Remove Ads</h3><p>Free with ads. Prefer it quiet? A single purchase removes banner and interstitial ads for good.</p></div>
+      <div class="feature"><div class="chip" style="background:var(--c1)" aria-hidden="true">5K</div><h3>5,000 levels</h3><p>Fifty chapters of hand-tuned puzzles that slowly introduce locks, bigger 5×5 boards and new twists.</p></div>
+      <div class="feature"><div class="chip" style="background:var(--c4)" aria-hidden="true">★</div><h3>Stars, not stress</h3><p>No timers. Each level has a par; finish under it for three stars and unlock what's next.</p></div>
+      <div class="feature"><div class="chip" style="background:var(--c2)" aria-hidden="true">◆</div><h3>Three tile themes</h3><p>Start with soft pastels, then unlock Frosted Glass and Polished Wood as you collect stars.</p></div>
+      <div class="feature"><div class="chip" style="background:var(--c3)" aria-hidden="true">✈</div><h3>Plays offline</h3><p>Progress is saved on your device, so you can play on a flight, a train, anywhere.</p></div>
+      <div class="feature"><div class="chip" style="background:var(--c5)" aria-hidden="true">ع</div><h3>English & العربية</h3><p>Full Arabic support with a proper right-to-left layout.</p></div>
+      <div class="feature"><div class="chip" style="background:var(--c1)" aria-hidden="true">✕</div><h3>One-time Remove Ads</h3><p>Free with ads. Prefer it quiet? A single purchase removes banner and interstitial ads for good.</p></div>
     </div>
   </div>
 </section>
 <section style="padding-top:24px">
   <div class="wrap">
     <div class="cta">
-      <div class="motif" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      <img src="/mino-grid/assets/img/icon-512.png" alt="" width="72" height="72" style="margin:0 auto 20px;border-radius:18px">
       <h2 class="section-title">Ready for level one?</h2>
-      <p class="section-sub" style="margin:0 auto 28px">MINO Grid is free on iPhone and iPad.</p>
+      <p class="section-sub" style="margin:0 auto 28px">MINO Grid is free on iPhone & iPad.</p>
       <div class="stores">
         <span class="store" aria-disabled="true" style="opacity:.85"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="18" r="1.2"/></svg><span><small>Coming soon to the</small><strong>App Store</strong></span></span>
       </div>
@@ -97,17 +101,7 @@
   </div>
 </section>
 </main>
-<footer class="site-footer">
-  <div class="wrap">
-    <span>© 2026 Omama Sabbagh. All rights reserved.</span>
-    <nav aria-label="Footer">
-      <a href="./">Home</a>
-      <a href="privacy/">Privacy</a>
-      <a href="mailto:omama.games@outlook.com">Contact</a>
-      <a href="ar/" hreflang="ar" lang="ar">العربية</a>
-    </nav>
-  </div>
-</footer>
-<script src="assets/puzzle.js" defer></script>
+<!-- og-footer --><footer class="og-footer"><div class="og-wrap"><span class="og-left"><a class="og-home" href="/" aria-label="Omama Games"><img src="/shared/logo.svg" alt=""></a><span dir="ltr">© 2026 Omama Games</span><span class="og-sep">·</span><a href="/">More games</a></span><nav class="og-links" aria-label="Footer"><a href="/mino-grid/privacy/">Privacy Policy</a><a href="mailto:omama.games@outlook.com">Contact</a><a href="/mino-grid/ar/" hreflang="ar" lang="ar">العربية</a></nav></div></footer><!-- /og-footer -->
+<script src="/mino-grid/assets/hero.js" defer></script>
 </body>
 </html>

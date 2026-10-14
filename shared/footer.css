@@ -1,0 +1,14 @@
+/* Omama Games — shared footer (one line, PEVOT style).
+   Uses each page's own --line and --muted colours, so it fits light and dark sites. */
+.og-footer { border-top: 1px solid var(--line, rgba(0,0,0,.1)); padding: 22px 0 40px; color: var(--muted, #6f6d67); font-size: 14px; font-weight: 600; margin-top: 8px; }
+.og-footer .og-wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; align-items: center; }
+.og-footer a { color: inherit; text-decoration: none; }
+.og-footer a:hover { text-decoration: underline; color: var(--ink, inherit); }
+.og-footer .og-left { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.og-footer .og-left img { width: 18px; height: 18px; border-radius: 5px; display: inline-block; vertical-align: middle; box-shadow: 0 0 0 1px var(--line, rgba(0,0,0,.1)); }
+.og-footer .og-links { display: inline-flex; flex-wrap: wrap; gap: 6px 18px; }
+.og-footer .og-sep { opacity: .5; }
+/* pages that switch language with a button (.en / .ar spans) */
+.og-footer .ar { display: none !important; }
+html[lang="ar"] .og-footer .ar { display: inline !important; }
+html[lang="ar"] .og-footer .en { display: none !important; }
