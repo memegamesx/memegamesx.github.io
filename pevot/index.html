@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PEVOT — One wrong tap ends it all</title>
+<meta name="description" content="PEVOT is a fast reflex tap game. Tap the safe tiles, dodge the tricksters, chain combos and unlock the Gold Glitch.">
+<link rel="icon" href="../img/icon.png">
+<link rel="apple-touch-icon" href="../img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="bar">
+    <a class="mark" href="./"><img src="../img/icon.png" alt=""> PEVOT</a>
+    <button class="lang" id="langBtn" type="button">عربي</button>
+  </div>
+
+  <section class="hero">
+    <img class="logo" src="../img/logo.png" alt="PEVOT">
+    <h1 class="en">One wrong tap <span>ends it all.</span></h1>
+    <h1 class="ar">ضغطة خاطئة واحدة <span>تنهي كل شيء.</span></h1>
+    <p class="en">A fast reflex tap game. Tap the safe tiles, dodge the tricksters, and see how long you can last.</p>
+    <p class="ar">لعبة سرعة وردود فعل. اضغط على المربعات الآمنة، تجنّب المربعات المخادعة، وشوف إلى متى تصمد.</p>
+    <!-- After launch: replace href="#" with your App Store link and remove the "soon" class. -->
+    <a class="cta soon" id="storeBtn" href="#"><span class="en">Coming soon on the App Store</span><span class="ar">قريباً على App Store</span></a>
+    <div class="tiles" aria-hidden="true"><i></i><i></i><i class="t"></i><i></i><i class="d"></i><i></i><i class="g"></i><i></i></div>
+  </section>
+
+  <section class="shots">
+    <img src="../img/shot1.jpg" alt="PEVOT gameplay: one wrong tap ends it all" loading="lazy">
+    <img src="../img/shot2.jpg" alt="PEVOT gameplay: X3 combo" loading="lazy">
+    <img src="../img/shot3.jpg" alt="PEVOT gameplay: Gold Glitch theme" loading="lazy">
+  </section>
+
+  <section class="features">
+    <div class="feature"><i class="dot" style="background:var(--safe)"></i>
+      <b class="en">Simple to learn</b><b class="ar">سهلة التعلّم</b>
+      <span class="en">Tap safe tiles before the timer runs out.</span><span class="ar">اضغط على المربعات الآمنة قبل انتهاء الوقت.</span></div>
+    <div class="feature"><i class="dot" style="background:var(--trick)"></i>
+      <b class="en">Spot the tricksters</b><b class="ar">اكتشف المخادعين</b>
+      <span class="en">Some tiles change colour to fool you.</span><span class="ar">بعض المربعات تغيّر لونها لتخدعك.</span></div>
+    <div class="feature"><i class="dot" style="background:var(--danger)"></i>
+      <b class="en">Combos &amp; shields</b><b class="ar">كومبو ودروع</b>
+      <span class="en">Chain fast taps for X3 coins. Buy a shield for a second chance.</span><span class="ar">اضغط بسرعة لتحصل على عملات X3، واشترِ درعاً لفرصة ثانية.</span></div>
+    <div class="feature"><i class="dot" style="background:var(--gold)"></i>
+      <b class="en">Unlock the Gold Glitch</b><b class="ar">افتح GOLD GLITCH</b>
+      <span class="en">Themes and particle effects to collect.</span><span class="ar">ثيمات ومؤثرات تجمعها مع تقدّمك.</span></div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 PEVOT · <a href="../"><span class="en">More games</span><span class="ar">ألعاب أخرى</span></a></span>
+    <span><a href="../privacy.html"><span class="en">Privacy Policy</span><span class="ar">سياسة الخصوصية</span></a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var html = document.documentElement, btn = document.getElementById('langBtn');
+  function set(lang) {
+    html.lang = lang; html.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    btn.textContent = lang === 'ar' ? 'EN' : 'عربي';
+    try { localStorage.setItem('pevot_lang', lang); } catch (e) {}
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('pevot_lang'); } catch (e) {}
+  set(saved || ((navigator.language || '').slice(0, 2) === 'ar' ? 'ar' : 'en'));
+  btn.addEventListener('click', function () { set(html.lang === 'ar' ? 'en' : 'ar'); });
+})();
+</script>
+</body>
+</html>
