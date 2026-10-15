@@ -1,4 +1,4 @@
-/* Omama Games — shared page styles for template-built games (landing + privacy). */
+/* Meme Games — shared page styles for template-built games (landing + privacy). */
 /* MINO Grid — site styles. Colors match the game's Classic theme (tile_themes.gd / ui_kit.gd). */
 :root {
   /* Defaults; each game overrides these in its page <head> (from game.json "theme"). */

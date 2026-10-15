@@ -1,4 +1,4 @@
-/* Omama Games — shared footer (one line, PEVOT style).
+/* Meme Games — shared footer (one line, PEVOT style).
    Uses each page's own --line and --muted colours, so it fits light and dark sites. */
 .og-footer { border-top: 1px solid var(--line, rgba(0,0,0,.1)); padding: 22px 0 40px; color: var(--muted, #6f6d67); font-size: 14px; font-weight: 600; margin-top: 8px; }
 .og-footer .og-wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; align-items: center; }
