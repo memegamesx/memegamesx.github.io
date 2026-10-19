@@ -1,0 +1,559 @@
+<title>Sufra Kitchen</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@500;700&family=Tajawal:wght@400;500;700;800&display=swap">
+<style>
+/* Layout: one-screen game. Najdi mud wall + counter on top (guests), dark tiled kitchen below (stations). Sadu weave band marks the counter edge. */
+:root{
+  --night:#0F2328;      /* Riyadh evening, page ground */
+  --night-2:#16343B;    /* kitchen tiles */
+  --night-3:#1E444C;    /* station panels */
+  --ivory:#F4EADB;      /* text, cups, plates */
+  --muted:#9FB7B9;      /* secondary text */
+  --sadu:#B5312A;       /* Sadu weave red */
+  --ink:#1A1310;        /* Sadu black */
+  --saffron:#E3A52F;    /* coins, accents, gahwa */
+  --palm:#4E8A5B;       /* good / patience */
+  --mud:#B07A4C;        /* Najdi adobe */
+  --mud-dk:#7C522F;     /* counter */
+  --warn:#E86A3A;
+  --display:"Reem Kufi","Tajawal",system-ui,sans-serif;
+  --body:"Tajawal",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{background:var(--night);color:var(--ivory);font-family:var(--body);font-size:15px;overflow:hidden;-webkit-tap-highlight-color:transparent}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:2px solid var(--saffron);outline-offset:2px}
+#app{height:100%;position:relative;overflow:hidden}
+.screen{height:100%;display:flex;flex-direction:column}
+.gutter{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* Sadu weave band */
+.sadu{height:14px;flex:none;background:
+  linear-gradient(135deg,var(--sadu) 25%,transparent 25%) -7px 0/14px 14px,
+  linear-gradient(225deg,var(--sadu) 25%,transparent 25%) -7px 0/14px 14px,
+  linear-gradient(315deg,var(--ink) 25%,transparent 25%) 0 0/14px 14px,
+  linear-gradient(45deg,var(--ink) 25%,transparent 25%) 0 0/14px 14px,
+  var(--ivory)}
+
+/* ---------- Menu ---------- */
+#menu{overflow-y:auto}
+.menu-inner{max-width:880px;width:100%;margin:0 auto;padding-block:20px 40px;display:flex;flex-direction:column;gap:22px;box-sizing:border-box}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:14px}
+.brand h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,8vw,64px);line-height:1;margin:0;color:var(--saffron);letter-spacing:.01em}
+.brand .mark{font-family:var(--display);font-size:clamp(26px,5vw,40px);color:var(--mud)}
+.top-actions{display:flex;gap:8px}
+.chip{padding:8px 14px;border-radius:999px;background:var(--night-3);font-weight:700;font-size:14px}
+.chip:hover{background:var(--night-2)}
+.lede{margin:0;max-width:56ch;color:var(--muted);font-size:17px;line-height:1.5}
+.wallet{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:17px}
+.coin{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--saffron);color:var(--ink);font-size:12px;font-weight:800;box-shadow:inset 0 -2px 0 #0003}
+.coin::after{content:"";width:9px;height:9px;border-radius:50%;border:2px solid #7A5410}
+h2{font-family:var(--display);font-weight:500;font-size:22px;margin:0;text-wrap:balance}
+.section{display:flex;flex-direction:column;gap:12px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.section-head small{color:var(--muted)}
+
+.city{background:var(--mud);color:var(--ink);border-radius:6px;overflow:hidden}
+.city-wall{height:18px;background:conic-gradient(from 135deg at top,transparent 90deg,var(--mud-dk) 0) 0 0/22px 18px repeat-x;background-color:var(--night)}
+.city-body{padding:14px;display:flex;flex-direction:column;gap:12px}
+.levels{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:10px}
+.lvl{background:var(--ivory);color:var(--ink);border-radius:6px;padding:10px 6px 8px;display:flex;flex-direction:column;align-items:center;gap:4px;box-shadow:0 3px 0 var(--mud-dk)}
+.lvl:hover:not(:disabled){transform:translateY(-2px)}
+.lvl:disabled{opacity:.45;cursor:not-allowed}
+.lvl .n{font-family:var(--display);font-size:26px;font-weight:700;line-height:1}
+.lvl .st{color:var(--sadu);letter-spacing:2px;font-size:14px}
+.lvl .new{display:flex;gap:2px;height:22px}
+.lvl .new svg{width:22px;height:22px}
+
+.shop{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.up{display:flex;gap:12px;align-items:center;background:var(--night-3);border-radius:6px;padding:12px}
+.up svg{width:40px;height:40px;flex:none}
+.up-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.up-txt b{font-size:15px}
+.up-txt span{color:var(--muted);font-size:13px;line-height:1.35}
+.buy{flex:none;padding:8px 12px;border-radius:6px;background:var(--saffron);color:var(--ink);font-weight:800;display:flex;gap:6px;align-items:center;font-variant-numeric:tabular-nums}
+.buy:disabled{background:var(--night-2);color:var(--muted);cursor:not-allowed}
+
+.cities{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.soon{border:1px dashed #9FB7B955;border-radius:6px;padding:12px;display:flex;flex-direction:column;gap:4px}
+.soon b{font-family:var(--display);font-weight:500;font-size:18px}
+.soon span{color:var(--muted);font-size:13px;line-height:1.4}
+.soon em{font-style:normal;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--saffron)}
+
+/* ---------- Game ---------- */
+.hud{display:flex;align-items:center;gap:12px;padding-block:8px;background:var(--ink);flex:none;flex-wrap:nowrap}
+.hud .icon-btn{width:36px;height:36px;border-radius:6px;background:var(--night-3);font-weight:800;flex:none}
+.hud-lvl{font-family:var(--display);font-size:16px;white-space:nowrap}
+.hud-goal{flex:1;min-width:0;display:flex;align-items:center;gap:8px}
+.goalbar{position:relative;flex:1;height:12px;border-radius:6px;background:var(--night-3);overflow:visible}
+.goalbar i{position:absolute;inset-block:0;inset-inline-start:0;width:0;border-radius:6px;background:var(--saffron);transition:width .25s}
+.goalbar .mk{position:absolute;top:-5px;width:2px;height:22px;background:var(--ivory)}
+.goalbar .mk::after{content:"★";position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:11px;color:var(--saffron)}
+.hud-coins{font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;display:flex;align-items:center;gap:5px}
+.hud-guests{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums;color:var(--muted)}
+
+.scene{position:relative;flex:none;background:var(--mud);padding-top:18px}
+.scene::before{content:"";position:absolute;inset:0 0 auto 0;height:18px;background:conic-gradient(from 135deg at top,transparent 90deg,var(--mud) 0) 0 0/22px 18px repeat-x;background-color:var(--night)}
+.windows{position:absolute;inset-inline:0;top:30px;height:14px;background:conic-gradient(from -45deg at bottom,#5A3A20 90deg,transparent 0) 0 0/48px 12px repeat-x;opacity:.55;pointer-events:none}
+.seats{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;height:150px;align-items:end;max-width:760px;margin:0 auto}
+.seat{position:relative;height:100%;display:flex;align-items:flex-end;justify-content:center}
+.counter{background:var(--mud-dk);height:16px;box-shadow:0 6px 10px #0006;position:relative;z-index:2}
+.counter .sadu{height:10px;background-size:10px 10px}
+
+.cust{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%;max-width:120px;animation:walkin .45s ease-out both;cursor:default}
+.cust.leave{animation:walkout .45s ease-in forwards}
+.cust.angry .face{filter:saturate(.6) sepia(.4) hue-rotate(-20deg)}
+.bubble{background:var(--ivory);color:var(--ink);border-radius:10px;padding:4px 5px;display:flex;flex-wrap:wrap;justify-content:center;gap:2px;position:relative;min-height:30px;box-shadow:0 2px 0 #0003}
+.bubble::after{content:"";position:absolute;bottom:-6px;left:50%;margin-left:-6px;border:6px solid transparent;border-bottom:0;border-top-color:var(--ivory)}
+.line{position:relative;width:30px;height:30px;display:grid;place-items:center}
+.line svg{width:30px;height:30px}
+.line.done svg{opacity:.3}
+.line.done::after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:var(--palm);font-weight:800;font-size:20px}
+.face{font-size:42px;line-height:1}
+.pat{width:70%;height:6px;border-radius:3px;background:#0004;overflow:hidden}
+.pat i{display:block;height:100%;width:100%;background:var(--palm);transform-origin:left;transition:background .3s}
+[dir=rtl] .pat i{transform-origin:right}
+
+.hint{margin:10px auto 0;max-width:760px;width:100%;box-sizing:border-box;background:var(--ivory);color:var(--ink);border-radius:6px;padding:10px 12px;display:flex;gap:10px;align-items:center;font-weight:500;line-height:1.4}
+.hint p{margin:0;flex:1;min-width:0}
+.hint button{font-weight:800;color:var(--sadu);flex:none}
+
+.kitchen{flex:1;min-height:0;overflow-y:auto;background:
+  linear-gradient(90deg,#ffffff06 1px,transparent 1px) 0 0/32px 32px,
+  linear-gradient(#ffffff06 1px,transparent 1px) 0 0/32px 32px,var(--night-2);padding-block:12px 20px}
+.k-grid{max-width:760px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.station{background:var(--night-3);border-radius:8px;padding:8px;display:flex;flex-direction:column;gap:6px;box-shadow:0 3px 0 #0005}
+.station.wide{grid-column:span 2}
+.st-label{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:6px}
+[lang=ar] .st-label{text-transform:none;letter-spacing:0;font-size:13px}
+.st-label .price{color:var(--saffron);font-variant-numeric:tabular-nums}
+.st-body{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.src{width:64px;height:64px;border-radius:8px;background:#0003;display:grid;place-items:center;transition:transform .08s}
+.src svg{width:56px;height:56px}
+.src:active,.slot:active{transform:scale(.93)}
+.slot{position:relative;width:56px;height:62px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:#0002;transition:transform .08s}
+.slot .ico{width:48px;height:48px;display:grid;place-items:center}
+.slot .ico svg{width:48px;height:48px}
+.slot .bar{width:40px;height:5px;border-radius:3px;background:#0005;overflow:hidden;visibility:hidden}
+.slot .bar i{display:block;height:100%;width:0;background:var(--saffron)}
+.slot.cook .bar,.slot.burnable .bar{visibility:visible}
+.slot.burnable .bar i{background:var(--warn)}
+.slot.ready{background:#E3A52F22;box-shadow:inset 0 0 0 2px var(--saffron)}
+.slot.warn{animation:warn .5s ease-in-out infinite alternate}
+.slot.burnt{box-shadow:inset 0 0 0 2px #0008}
+.slot.saj{background:radial-gradient(circle at 50% 42%,#2A2A2A 0 22px,#0002 23px)}
+.slot.grill{background:repeating-linear-gradient(90deg,#0000 0 6px,#00000040 6px 8px),#3A2018aa}
+.slot.cook.grill{background:repeating-linear-gradient(90deg,#0000 0 6px,#00000040 6px 8px),radial-gradient(circle at 50% 70%,#E86A3A66,#3A2018aa 70%)}
+.stream{position:absolute;top:2px;left:50%;width:3px;height:22px;margin-left:-1px;background:linear-gradient(#D8B46A,#C9A15A);border-radius:2px;animation:pour .3s linear infinite}
+.steam{animation:steam 1.6s ease-in-out infinite}
+.shake{animation:shake .3s}
+
+#fx{position:absolute;inset:0;pointer-events:none;z-index:50;overflow:hidden}
+.float{position:absolute;font-weight:800;font-size:20px;color:var(--saffron);text-shadow:0 2px 0 var(--ink);transform:translate(-50%,-50%);animation:rise 1s ease-out forwards;white-space:nowrap}
+.fly{position:absolute;width:36px;height:36px;transform:translate(-50%,-50%);transition:left .32s cubic-bezier(.3,.7,.4,1),top .32s cubic-bezier(.3,.7,.4,1),opacity .32s}
+.fly svg{width:36px;height:36px}
+
+/* ---------- Overlay ---------- */
+#overlay{position:absolute;inset:0;background:#0F2328D9;display:grid;place-items:center;z-index:60;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.card{background:var(--ivory);color:var(--ink);border-radius:10px;width:min(380px,100%);overflow:hidden;box-shadow:0 20px 40px #0008;animation:pop .3s ease-out}
+.card .sadu{height:12px;background-size:12px 12px}
+.card-body{padding:20px;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center}
+.card h3{font-family:var(--display);font-size:28px;margin:0;font-weight:700}
+.bigstars{font-size:40px;letter-spacing:6px;color:#0002;line-height:1}
+.bigstars b{color:var(--saffron);font-weight:400}
+.stats{width:100%;display:grid;grid-template-columns:1fr auto;gap:6px 12px;text-align:start;font-variant-numeric:tabular-nums}
+.stats dt{color:#5A4A3E}
+.stats dd{margin:0;font-weight:800}
+.btns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.btn{padding:11px 18px;border-radius:6px;background:var(--night);color:var(--ivory);font-weight:800}
+.btn.primary{background:var(--sadu)}
+
+@keyframes walkin{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+@keyframes walkout{to{transform:translateY(30px);opacity:0}}
+@keyframes warn{from{box-shadow:inset 0 0 0 2px var(--warn)}to{box-shadow:inset 0 0 0 2px var(--warn),0 0 14px var(--warn)}}
+@keyframes pour{from{opacity:.7}to{opacity:1}}
+@keyframes steam{0%,100%{opacity:.2;transform:translateY(0)}50%{opacity:.8;transform:translateY(-3px)}}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@keyframes rise{from{opacity:1;margin-top:0}to{opacity:0;margin-top:-50px}}
+@keyframes pop{from{transform:scale(.9);opacity:0}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+@media (max-width:420px){
+  .seats{height:136px;gap:4px}
+  .face{font-size:34px}
+  .line,.line svg{width:24px;height:24px}
+  .hud{gap:8px}
+  .hud-guests{display:none}
+}
+</style>
+
+<div id="app">
+  <section id="menu" class="screen">
+    <div class="menu-inner gutter">
+      <header class="top">
+        <div class="brand"><h1 data-t="title">Sufra</h1><span class="mark">سفرة</span></div>
+        <div class="top-actions">
+          <button class="chip" id="langBtn" type="button">العربية</button>
+          <button class="chip" id="soundBtn" type="button">Sound on</button>
+        </div>
+      </header>
+      <div class="sadu"></div>
+      <p class="lede" data-t="lede">Cook and serve Saudi favorites before your guests run out of patience.</p>
+      <div class="wallet"><span class="coin"></span><span><span data-t="wallet">Wallet</span>: <b id="walletAmt">0</b> <span data-t="sar">SAR</span></span></div>
+
+      <div class="section">
+        <div class="city">
+          <div class="city-wall"></div>
+          <div class="city-body">
+            <div class="section-head"><h2 data-t="riyadh">Riyadh · Najd Kitchen</h2><small data-t="riyadhSub" style="color:#3B2A1E">8 levels</small></div>
+            <div id="levels" class="levels"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-head"><h2 data-t="upgrades">Kitchen upgrades</h2><small data-t="upgradesSub">Spend riyals earned in service</small></div>
+        <div id="shop" class="shop"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-head"><h2 data-t="nextStops">Next stops</h2><small data-t="nextSub">Planned restaurants</small></div>
+        <div id="cities" class="cities"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="game" class="screen" hidden>
+    <header class="hud gutter">
+      <button class="icon-btn" id="pauseBtn" type="button" aria-label="Pause">❚❚</button>
+      <div class="hud-lvl"><span data-t="level">Level</span> <b id="hudLevel">1</b></div>
+      <div class="hud-goal">
+        <div class="goalbar"><i id="goalFill"></i><span class="mk" id="goalMk"></span></div>
+        <span class="hud-coins"><span class="coin"></span><b id="hudCoins">0</b></span>
+      </div>
+      <div class="hud-guests">👥 <b id="hudGuests">0</b></div>
+    </header>
+    <div class="scene gutter">
+      <div class="windows"></div>
+      <div id="seats" class="seats"></div>
+    </div>
+    <div class="counter"><div class="sadu"></div></div>
+    <div class="kitchen gutter">
+      <div id="hint" class="hint" hidden><p id="hintText"></p><button type="button" id="hintClose" data-t="gotIt">Got it</button></div>
+      <div id="kgrid" class="k-grid" style="margin-top:10px"></div>
+    </div>
+  </section>
+
+  <div id="overlay" hidden></div>
+  <div id="fx"></div>
+</div>
+
+<script>
+(function(){
+"use strict";
+/* ---------------- Text ---------------- */
+const STR={
+ en:{title:"Sufra",lede:"Cook and serve Saudi favorites before your guests run out of patience. Start in Riyadh, then travel the Kingdom.",wallet:"Wallet",sar:"SAR",
+  riyadh:"Riyadh · Najd Kitchen",riyadhSub:"8 levels",upgrades:"Kitchen upgrades",upgradesSub:"Spend riyals earned in service",nextStops:"Next stops",nextSub:"Planned restaurants",
+  level:"Level",gotIt:"Got it",soundOn:"Sound on",soundOff:"Sound off",lang:"العربية",
+  dates:"Dates",gahwa:"Gahwa",mutabbaq:"Mutabbaq",kabsa:"Kabsa",dallah:"Dallah & finjan",saj:"Saj griddle",grill:"Charcoal grill",rice:"Kabsa rice",
+  paused:"Paused",resume:"Resume",quit:"Leave kitchen",retry:"Try again",next:"Next level",map:"Back to map",
+  win:"Service complete",lose:"Goal missed",earned:"Earned",goal:"Goal",served:"Guests served",lost:"Left unhappy",owned:"Owned",soon:"Coming soon",
+  newDish:"New",
+  h1:"Tap the dates to serve them right away. Tap the dallah to pour gahwa, then tap a full finjan to serve it.",
+  h3:"New: mutabbaq. Tap the dough to lay it on the saj, then tap it once it turns golden. If it glows red, it is about to burn.",
+  h5:"New: kabsa. Tap the pot to plate rice, put chicken on the grill, tap the cooked chicken to add it to a plate, then tap the finished plate.",
+  u_dallah:"Brass dallah",u_dallah_d:"Pours gahwa almost twice as fast.",
+  u_cups:"Third finjan",u_cups_d:"Pour three cups at once.",
+  u_saj:"Wider saj",u_saj_d:"Cook three mutabbaq at a time.",
+  u_plates:"Extra platter",u_plates_d:"Prepare four kabsa plates.",
+  u_grill:"Long grill",u_grill_d:"Grill four chickens at once.",
+  u_majlis:"Majlis cushions",u_majlis_d:"Guests wait 25% longer.",
+  c_jeddah:"Jeddah",c_jeddah_d:"Hijazi breakfast: ful, balila, tamees bread.",
+  c_ahsa:"Al-Ahsa",c_ahsa_d:"Hasawi rice, khalas dates, luqaimat.",
+  c_abha:"Abha",c_abha_d:"Areeka with honey, haneeth, mountain tea.",
+  c_gulf:"Beyond the Kingdom",c_gulf_d:"Kuwait, Egypt, Lebanon, Morocco and more."},
+ ar:{title:"سفرة",lede:"اطبخ وقدّم الأكلات السعودية قبل أن ينفد صبر ضيوفك. ابدأ من الرياض ثم تجوّل في المملكة.",wallet:"المحفظة",sar:"ريال",
+  riyadh:"الرياض · مطبخ نجد",riyadhSub:"٨ مراحل",upgrades:"تطوير المطبخ",upgradesSub:"اصرف الريالات التي كسبتها",nextStops:"المحطات القادمة",nextSub:"مطاعم قادمة",
+  level:"المرحلة",gotIt:"فهمت",soundOn:"الصوت يعمل",soundOff:"الصوت مغلق",lang:"English",
+  dates:"تمر",gahwa:"قهوة",mutabbaq:"مطبق",kabsa:"كبسة",dallah:"الدلة والفناجيل",saj:"الصاج",grill:"شواية الفحم",rice:"رز الكبسة",
+  paused:"توقف مؤقت",resume:"متابعة",quit:"مغادرة المطبخ",retry:"حاول مجددًا",next:"المرحلة التالية",map:"العودة للخريطة",
+  win:"أحسنت! انتهت الخدمة",lose:"لم تحقق الهدف",earned:"المكسب",goal:"الهدف",served:"ضيوف تمت خدمتهم",lost:"غادروا غير راضين",owned:"تم الشراء",soon:"قريبًا",
+  newDish:"جديد",
+  h1:"اضغط على التمر لتقديمه فورًا. اضغط على الدلة لصب القهوة، ثم اضغط على الفنجان الممتلئ لتقديمه.",
+  h3:"جديد: المطبق. اضغط على العجين لوضعه على الصاج، ثم اضغط عليه عندما يصبح ذهبيًا. إذا توهج بالأحمر فهو على وشك الاحتراق.",
+  h5:"جديد: الكبسة. اضغط على القدر لوضع الرز في الصحن، ضع الدجاج على الشواية، اضغط على الدجاج الناضج لإضافته للصحن، ثم اضغط على الصحن الجاهز.",
+  u_dallah:"دلة نحاسية",u_dallah_d:"تصب القهوة أسرع بمرتين تقريبًا.",
+  u_cups:"فنجان ثالث",u_cups_d:"صب ثلاثة فناجيل معًا.",
+  u_saj:"صاج أكبر",u_saj_d:"اطبخ ثلاث قطع مطبق معًا.",
+  u_plates:"صحن إضافي",u_plates_d:"جهّز أربعة صحون كبسة.",
+  u_grill:"شواية طويلة",u_grill_d:"اشوِ أربع قطع دجاج معًا.",
+  u_majlis:"جلسة مجلس",u_majlis_d:"ينتظر الضيوف أطول بنسبة ٢٥٪.",
+  c_jeddah:"جدة",c_jeddah_d:"فطور حجازي: فول، بليلة، خبز تميس.",
+  c_ahsa:"الأحساء",c_ahsa_d:"رز حساوي، تمر خلاص، لقيمات.",
+  c_abha:"أبها",c_abha_d:"عريكة بالعسل، حنيذ، شاي جبلي.",
+  c_gulf:"خارج المملكة",c_gulf_d:"الكويت، مصر، لبنان، المغرب وغيرها."}
+};
+const t=k=>(STR[S.lang]&&STR[S.lang][k])||STR.en[k]||k;
+const num=n=>S.lang==="ar"?Number(n).toLocaleString("ar-SA"):String(n);
+
+/* ---------------- Save ---------------- */
+const KEY="sufra-save-v1";
+let S={wallet:0,stars:[],up:{},lang:"en",sound:true};
+try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s)S=Object.assign(S,s)}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+
+/* ---------------- Art ---------------- */
+const COL={raw:"#EFDDB8",gold:"#D9952F",burnt:"#3B2A22",chRaw:"#E8A9A0",chCook:"#B5652A",chBurnt:"#2E211B"};
+const ICO={
+ dates:()=>`<svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="24" cy="38" rx="19" ry="6" fill="#4E8A5B"/><path d="M6 38q18-6 36 0" stroke="#3A6B45" stroke-width="1.5" fill="none"/><ellipse cx="16" cy="29" rx="6" ry="10" transform="rotate(-28 16 29)" fill="#6E3B1F"/><ellipse cx="32" cy="29" rx="6" ry="10" transform="rotate(28 32 29)" fill="#7C4526"/><ellipse cx="24" cy="25" rx="6.5" ry="11" fill="#5C2F17"/><ellipse cx="22" cy="20" rx="1.8" ry="4" fill="#C08A5C" opacity=".7"/></svg>`,
+ cup:full=>`<svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="24" cy="41" rx="13" ry="3" fill="#0004"/><path d="M11 17h26l-4 22H15z" fill="#F6F1E7"/><path d="M14 31h20" stroke="#4E8A5B" stroke-width="2"/><path d="M14.5 35h19" stroke="#B5312A" stroke-width="1.5"/>${full?`<ellipse cx="24" cy="18.5" rx="12.4" ry="2.6" fill="#C9A15A"/><g class="steam" stroke="#F4EADB" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".6"><path d="M20 13q-2-3 0-6"/><path d="M27 13q2-3 0-6"/></g>`:""}<path d="M11 17h26" stroke="#E3A52F" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+ gahwa:()=>ICO.cup(true),
+ dallah:()=>`<svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="30" cy="58" rx="16" ry="3" fill="#0004"/><path d="M19 56h22l-2-5c5-6 5-15 0-21l2-6H19l2 6c-5 6-5 15 0 21z" fill="#D4A23A"/><path d="M21 36h18" stroke="#B07E22" stroke-width="2"/><path d="M38 30c6-2 11-9 15-18l3 1c-3 10-9 18-16 21z" fill="#C08F2C"/><path d="M21 22l9-11 9 11z" fill="#E2B655"/><circle cx="30" cy="9" r="3" fill="#E2B655"/><path d="M20 30c-9 2-9 16 0 18" stroke="#B07E22" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M24 40c0-4 2-7 3-8" stroke="#F4D78A" stroke-width="2" fill="none" stroke-linecap="round" opacity=".7"/></svg>`,
+ mutabbaq:(c=COL.gold)=>`<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="12" width="32" height="24" rx="5" fill="${c}"/><path d="M8 24h32M24 12v24" stroke="#0003" stroke-width="1.6"/>${c===COL.burnt?`<path d="M14 18l4 3M30 28l4-2M28 16l3 3" stroke="#111" stroke-width="1.5"/>`:`<circle cx="16" cy="18" r="1.6" fill="#4E8A5B"/><circle cx="31" cy="30" r="1.6" fill="#4E8A5B"/><circle cx="30" cy="17" r="1.4" fill="#F2C94C"/><circle cx="17" cy="30" r="1.4" fill="#F2C94C"/>`}</svg>`,
+ dough:()=>`<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="10" y="22" width="30" height="16" rx="5" fill="#D9C79F"/><rect x="8" y="16" width="30" height="16" rx="5" fill="#E7D6B0"/><rect x="6" y="10" width="30" height="16" rx="5" fill="${COL.raw}"/><circle cx="14" cy="16" r="1.2" fill="#C9B489"/><circle cx="26" cy="20" r="1.2" fill="#C9B489"/></svg>`,
+ chicken:(c=COL.chCook)=>`<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M27 27l11 11" stroke="#F4EADB" stroke-width="5" stroke-linecap="round"/><circle cx="40" cy="37" r="3.4" fill="#F4EADB"/><circle cx="37" cy="40.5" r="3.4" fill="#F4EADB"/><ellipse cx="20" cy="20" rx="14" ry="10.5" transform="rotate(45 20 20)" fill="${c}"/>${c===COL.chCook?`<path d="M13 17q5-4 10 0M15 24q5-4 10 0" stroke="#7A3E14" stroke-width="2" fill="none" opacity=".6"/>`:""}<ellipse cx="15" cy="15" rx="3" ry="5" transform="rotate(45 15 15)" fill="#fff" opacity=".18"/></svg>`,
+ chickenTray:()=>`<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="4" y="34" width="56" height="18" rx="4" fill="#9FB7B9"/><rect x="4" y="34" width="56" height="5" rx="2" fill="#C5D4D5"/><g transform="translate(4 8) scale(.7)">${ICO.chicken(COL.chRaw).replace(/<\/?svg[^>]*>/g,"")}</g><g transform="translate(26 12) scale(.7)">${ICO.chicken(COL.chRaw).replace(/<\/?svg[^>]*>/g,"")}</g></svg>`,
+ plate:(kind)=>{
+   let s=`<svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="24" cy="32" rx="21" ry="9" fill="#E7DFD0"/><ellipse cx="24" cy="31" rx="16" ry="6" fill="#F6F1E7"/><path d="M5 32q19 9 38 0" stroke="#B5312A" stroke-width="1.2" fill="none"/>`;
+   if(kind==="rice"||kind==="kabsa"){s+=`<path d="M9 31c1-10 29-12 30 0c-7 5-23 5-30 0z" fill="#E09A45"/><g fill="#F5C77E"><circle cx="16" cy="27" r="1"/><circle cx="22" cy="24" r="1"/><circle cx="29" cy="26" r="1"/><circle cx="33" cy="29" r="1"/><circle cx="19" cy="30" r="1"/></g>`}
+   if(kind==="kabsa"){s+=`<g transform="translate(12 3) scale(.55)">${ICO.chicken(COL.chCook).replace(/<\/?svg[^>]*>/g,"")}</g><g fill="#F4EADB"><ellipse cx="13" cy="28" rx="2" ry="1"/><ellipse cx="34" cy="27" rx="2" ry="1"/></g><g fill="#3B2014"><circle cx="17" cy="31" r="1.1"/><circle cx="31" cy="31" r="1.1"/></g><circle cx="36" cy="30" r="1.2" fill="#4E8A5B"/>`}
+   return s+"</svg>"},
+ kabsa:()=>ICO.plate("kabsa"),
+ pot:()=>`<svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="58" rx="24" ry="3" fill="#0004"/><path d="M8 24h48v20c0 7-5 12-12 12H20c-7 0-12-5-12-12z" fill="#5B6266"/><path d="M8 30h48" stroke="#4A5054" stroke-width="2"/><path d="M12 22c4-9 36-9 40 0z" fill="#E09A45"/><g fill="#F5C77E"><circle cx="22" cy="18" r="1.3"/><circle cx="32" cy="16" r="1.3"/><circle cx="41" cy="18.5" r="1.3"/></g><rect x="4" y="21" width="56" height="6" rx="3" fill="#7A8186"/><path d="M2 32h6M56 32h6" stroke="#7A8186" stroke-width="4" stroke-linecap="round"/></svg>`,
+ cushion:()=>`<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="22" width="40" height="18" rx="6" fill="#B5312A"/><path d="M8 31h32" stroke="#F4EADB" stroke-width="2" stroke-dasharray="4 3"/><rect x="10" y="10" width="20" height="16" rx="5" fill="#1A1310"/><path d="M14 18h12" stroke="#E3A52F" stroke-width="2"/></svg>`
+};
+const FACES=["🧔🏽","👩🏽","👴🏽","🧕🏽","👨🏽","👵🏽","🧒🏽","👨🏻","🧕🏻","👩🏻"];
+
+/* ---------------- Rules ---------------- */
+const PRICE={dates:4,gahwa:6,mutabbaq:10,kabsa:18};
+const LEVELS=[
+ {menu:["dates","gahwa"],n:6,goal:45,expert:60,maxItems:2,patience:30,spawn:[4,7],hint:"h1"},
+ {menu:["dates","gahwa"],n:9,goal:70,expert:90,maxItems:2,patience:25,spawn:[3.5,6]},
+ {menu:["dates","gahwa","mutabbaq"],n:9,goal:90,expert:120,maxItems:2,patience:32,spawn:[5,8],intro:"mutabbaq",hint:"h3"},
+ {menu:["dates","gahwa","mutabbaq"],n:12,goal:150,expert:200,maxItems:3,patience:30,spawn:[4.5,7.5]},
+ {menu:["dates","gahwa","mutabbaq","kabsa"],n:10,goal:140,expert:185,maxItems:2,patience:42,spawn:[6,9],intro:"kabsa",hint:"h5"},
+ {menu:["dates","gahwa","mutabbaq","kabsa"],n:12,goal:220,expert:285,maxItems:3,patience:40,spawn:[5,8]},
+ {menu:["dates","gahwa","mutabbaq","kabsa"],n:14,goal:260,expert:340,maxItems:3,patience:36,spawn:[4.5,7]},
+ {menu:["dates","gahwa","mutabbaq","kabsa"],n:16,goal:300,expert:390,maxItems:3,patience:32,spawn:[3.8,6]}
+];
+const UPGRADES=[
+ {id:"dallah",cost:40,icon:()=>ICO.dallah()},
+ {id:"cups",cost:60,icon:()=>ICO.cup(true)},
+ {id:"saj",cost:90,icon:()=>ICO.mutabbaq()},
+ {id:"majlis",cost:140,icon:()=>ICO.cushion()},
+ {id:"plates",cost:110,icon:()=>ICO.plate("rice")},
+ {id:"grill",cost:130,icon:()=>ICO.chicken()}
+];
+const CITIES=["jeddah","ahsa","abha","gulf"];
+function cfg(){const u=S.up;return{pour:u.dallah?1.2:2.2,cups:u.cups?3:2,saj:u.saj?3:2,grill:u.grill?4:3,plates:u.plates?4:3,pat:u.majlis?1.25:1,sajCook:4.5,sajBurn:6,grillCook:5.5,grillBurn:7}}
+
+/* ---------------- Audio ---------------- */
+let actx=null;
+function tone(f,d=.09,type="sine",v=.07,delay=0){
+  if(!S.sound)return;
+  try{actx=actx||new(window.AudioContext||window.webkitAudioContext)();
+    const at=actx.currentTime+delay,o=actx.createOscillator(),g=actx.createGain();
+    o.type=type;o.frequency.setValueAtTime(f,at);g.gain.setValueAtTime(v,at);g.gain.exponentialRampToValueAtTime(.0001,at+d);
+    o.connect(g).connect(actx.destination);o.start(at);o.stop(at+d+.02)}catch(e){}
+}
+const sfx={
+  tap:()=>tone(520,.05,"triangle",.05),
+  serve:()=>{tone(660,.08,"triangle");tone(880,.1,"triangle",.06,.06)},
+  coin:()=>{tone(988,.08,"square",.035);tone(1319,.14,"square",.035,.07)},
+  no:()=>tone(160,.12,"sawtooth",.04),
+  burn:()=>tone(110,.25,"sawtooth",.05),
+  angry:()=>{tone(300,.15,"sawtooth",.04);tone(220,.2,"sawtooth",.04,.12)}
+};
+
+/* ---------------- DOM helpers ---------------- */
+const $=s=>document.querySelector(s);
+const rand=(a,b)=>a+Math.random()*(b-a);
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function center(el){const r=el.getBoundingClientRect(),a=$("#app").getBoundingClientRect();return{x:r.left-a.left+r.width/2,y:r.top-a.top+r.height/2}}
+function floatText(el,txt,color){const p=center(el),s=document.createElement("span");s.className="float";s.textContent=txt;if(color)s.style.color=color;s.style.left=p.x+"px";s.style.top=p.y+"px";$("#fx").appendChild(s);setTimeout(()=>s.remove(),1000)}
+function fly(fromEl,toEl,svg){const a=center(fromEl),b=center(toEl),d=document.createElement("div");d.className="fly";d.innerHTML=svg;d.style.left=a.x+"px";d.style.top=a.y+"px";$("#fx").appendChild(d);requestAnimationFrame(()=>requestAnimationFrame(()=>{d.style.left=b.x+"px";d.style.top=b.y+"px"}));setTimeout(()=>d.remove(),340)}
+function shake(el){el.classList.remove("shake");void el.offsetWidth;el.classList.add("shake");sfx.no()}
+
+/* ---------------- Menu ---------------- */
+function applyLang(){
+  document.documentElement.lang=S.lang;document.documentElement.dir=S.lang==="ar"?"rtl":"ltr";
+  document.querySelectorAll("[data-t]").forEach(el=>{el.textContent=t(el.dataset.t)});
+  $("#langBtn").textContent=t("lang");
+  $("#soundBtn").textContent=S.sound?t("soundOn"):t("soundOff");
+  renderMenu();
+}
+function unlocked(li){return li===0||(S.stars[li-1]||0)>0}
+function renderMenu(){
+  $("#walletAmt").textContent=num(S.wallet);
+  $("#levels").innerHTML=LEVELS.map((L,i)=>{
+    const st=S.stars[i]||0,lock=!unlocked(i);
+    const newItems=i===0?L.menu:(L.intro?[L.intro]:[]);
+    return `<button class="lvl" type="button" data-li="${i}" ${lock?"disabled":""} aria-label="${t("level")} ${i+1}"><span class="n">${lock?"🔒":num(i+1)}</span><span class="st">${"★".repeat(st)}${"☆".repeat(3-st)}</span><span class="new">${newItems.map(k=>ICO[k]()).join("")}</span></button>`}).join("");
+  $("#shop").innerHTML=UPGRADES.map(u=>{const own=!!S.up[u.id];
+    return `<div class="up">${u.icon()}<div class="up-txt"><b>${t("u_"+u.id)}</b><span>${t("u_"+u.id+"_d")}</span></div><button class="buy" type="button" data-up="${u.id}" ${own||S.wallet<u.cost?"disabled":""}>${own?t("owned"):`<span class="coin"></span>${num(u.cost)}`}</button></div>`}).join("");
+  $("#cities").innerHTML=CITIES.map(c=>`<div class="soon"><em>${t("soon")}</em><b>${t("c_"+c)}</b><span>${t("c_"+c+"_d")}</span></div>`).join("");
+}
+$("#levels").addEventListener("click",e=>{const b=e.target.closest(".lvl");if(b&&!b.disabled){sfx.tap();startLevel(+b.dataset.li)}});
+$("#shop").addEventListener("click",e=>{const b=e.target.closest(".buy");if(!b||b.disabled)return;const u=UPGRADES.find(x=>x.id===b.dataset.up);
+  if(S.wallet>=u.cost&&!S.up[u.id]){S.wallet-=u.cost;S.up[u.id]=true;save();sfx.coin();renderMenu()}});
+$("#langBtn").addEventListener("click",()=>{S.lang=S.lang==="ar"?"en":"ar";save();applyLang()});
+$("#soundBtn").addEventListener("click",()=>{S.sound=!S.sound;save();applyLang();sfx.tap()});
+
+/* ---------------- Game ---------------- */
+let G=null;
+function mkSlots(n,kind){return Array.from({length:n},()=>({kind,state:"empty",t:0,el:null}))}
+function startLevel(li){
+  const L=LEVELS[li],C=cfg();
+  G={li,L,C,coins:0,served:0,lost:0,spawned:0,nextSpawn:1,seats:[null,null,null,null],over:false,paused:false,ending:false,introDone:false,
+     cups:mkSlots(C.cups,"cups"),saj:mkSlots(C.saj,"saj"),grill:mkSlots(C.grill,"grill"),plates:mkSlots(C.plates,"plates")};
+  $("#menu").hidden=true;$("#game").hidden=false;$("#overlay").hidden=true;
+  $("#hudLevel").textContent=num(li+1);
+  $("#goalMk").style.insetInlineStart=(L.goal/L.expert*100)+"%";
+  $("#seats").innerHTML=G.seats.map((_,i)=>`<div class="seat" id="seat${i}"></div>`).join("");
+  buildKitchen();
+  if(L.hint){$("#hintText").textContent=t(L.hint);$("#hint").hidden=false}else $("#hint").hidden=true;
+  hud();
+}
+function station(cls,label,price,body){return `<div class="station ${cls}"><div class="st-label"><span>${label}</span>${price?`<span class="price">${num(price)}</span>`:""}</div><div class="st-body">${body}</div></div>`}
+function slotHTML(k,i,extra){return `<button class="slot ${extra||""}" type="button" data-k="${k}" data-i="${i}"><span class="ico"></span><span class="bar"><i></i></span></button>`}
+function buildKitchen(){
+  const m=G.L.menu;let h="";
+  if(m.includes("dates"))h+=station("","<span>"+t("dates")+"</span>",PRICE.dates,`<button class="src" type="button" data-src="dates" aria-label="${t("dates")}">${ICO.dates()}</button>`);
+  if(m.includes("gahwa"))h+=station("",t("dallah"),PRICE.gahwa,`<button class="src" type="button" data-src="dallah" aria-label="${t("dallah")}">${ICO.dallah()}</button>`+G.cups.map((_,i)=>slotHTML("cups",i)).join(""));
+  if(m.includes("mutabbaq"))h+=station(G.C.saj>2?"wide":"",t("saj"),PRICE.mutabbaq,`<button class="src" type="button" data-src="dough" aria-label="${t("mutabbaq")}">${ICO.dough()}</button>`+G.saj.map((_,i)=>slotHTML("saj",i,"saj")).join(""));
+  if(m.includes("kabsa")){
+    h+=station("wide",t("grill"),0,`<button class="src" type="button" data-src="chicken" aria-label="${t("grill")}">${ICO.chickenTray()}</button>`+G.grill.map((_,i)=>slotHTML("grill",i,"grill")).join(""));
+    h+=station("wide",t("rice")+" · "+t("kabsa"),PRICE.kabsa,`<button class="src" type="button" data-src="rice" aria-label="${t("rice")}">${ICO.pot()}</button>`+G.plates.map((_,i)=>slotHTML("plates",i)).join(""));
+  }
+  $("#kgrid").innerHTML=h;
+  for(const k of ["cups","saj","grill","plates"])G[k].forEach((s,i)=>{s.el=$(`.slot[data-k="${k}"][data-i="${i}"]`);if(s.el)drawSlot(s)});
+}
+function drawSlot(s){
+  if(!s.el)return;
+  const ico=s.el.querySelector(".ico");let svg="";
+  if(s.kind==="cups")svg=ICO.cup(s.state==="ready")+(s.state==="cook"?`<span class="stream"></span>`:"");
+  else if(s.kind==="saj")svg=s.state==="empty"?"":ICO.mutabbaq(s.state==="cook"?COL.raw:s.state==="ready"?COL.gold:COL.burnt);
+  else if(s.kind==="grill")svg=s.state==="empty"?"":ICO.chicken(s.state==="cook"?COL.chRaw:s.state==="ready"?COL.chCook:COL.chBurnt);
+  else if(s.kind==="plates")svg=ICO.plate(s.state==="empty"?"":s.state);
+  ico.innerHTML=svg;
+  const burnable=(s.kind==="saj"||s.kind==="grill")&&s.state==="ready";
+  s.el.classList.toggle("cook",s.state==="cook");
+  s.el.classList.toggle("ready",s.state==="ready"||(s.kind==="plates"&&s.state==="kabsa"));
+  s.el.classList.toggle("burnt",s.state==="burnt");
+  s.el.classList.toggle("burnable",burnable);
+  if(!burnable)s.el.classList.remove("warn");
+  if(s.kind==="cups"&&s.state==="empty")ico.style.opacity=".45";else ico.style.opacity="";
+}
+function setSlot(s,state){s.state=state;s.t=0;drawSlot(s)}
+
+$("#kgrid").addEventListener("click",e=>{
+  if(!G||G.paused||G.over)return;
+  const b=e.target.closest("button");if(!b)return;
+  if(b.dataset.src)return onSource(b.dataset.src,b);
+  if(b.dataset.k)onSlot(G[b.dataset.k][+b.dataset.i],b);
+});
+function free(arr,state="empty"){return arr.find(s=>s.state===state)}
+function onSource(src,el){
+  if(src==="dates"){if(!serve("dates",el))shake(el);return}
+  const map={dallah:"cups",dough:"saj",chicken:"grill"};
+  if(map[src]){const s=free(G[map[src]]);if(!s)return shake(el);sfx.tap();setSlot(s,"cook");return}
+  if(src==="rice"){const s=free(G.plates);if(!s)return shake(el);sfx.tap();setSlot(s,"rice")}
+}
+function onSlot(s,el){
+  if(s.state==="burnt"){sfx.burn();floatText(el,"🗑");setSlot(s,"empty");return}
+  if(s.kind==="cups"&&s.state==="ready"){if(serve("gahwa",el))setSlot(s,"empty");else shake(el);return}
+  if(s.kind==="saj"&&s.state==="ready"){if(serve("mutabbaq",el))setSlot(s,"empty");else shake(el);return}
+  if(s.kind==="grill"&&s.state==="ready"){const p=free(G.plates,"rice");if(!p)return shake(el);fly(el,p.el,ICO.chicken());sfx.tap();setSlot(s,"empty");setSlot(p,"kabsa");return}
+  if(s.kind==="plates"&&s.state==="kabsa"){if(serve("kabsa",el))setSlot(s,"empty");else shake(el);return}
+  if(s.state!=="cook")shake(el);
+}
+
+/* Customers */
+function spawn(){
+  const free=G.seats.map((c,i)=>c?null:i).filter(i=>i!==null);if(!free.length)return false;
+  const seat=pick(free),L=G.L;
+  const count=1+Math.floor(Math.random()*L.maxItems);
+  const order=[];
+  for(let i=0;i<count;i++)order.push(pick(L.menu));
+  if(L.intro&&!G.introDone){G.introDone=true;if(!order.includes(L.intro))order[0]=L.intro}
+  order.sort((a,b)=>L.menu.indexOf(a)-L.menu.indexOf(b));
+  const max=(L.patience+5*(count-1))*G.C.pat;
+  const el=document.createElement("div");el.className="cust";
+  el.innerHTML=`<div class="bubble">${order.map(k=>`<span class="line" data-item="${k}" title="${t(k)}">${ICO[k]()}</span>`).join("")}</div><div class="face">${pick(FACES)}</div><div class="pat"><i></i></div>`;
+  $("#seat"+seat).appendChild(el);
+  G.seats[seat]={seat,order:order.map(k=>({k,done:false})),pat:max,max,el,bar:el.querySelector(".pat i"),leaving:false};
+  G.spawned++;return true;
+}
+function serve(item,fromEl){
+  let best=null;
+  for(const c of G.seats){if(!c||c.leaving)continue;if(c.order.some(o=>o.k===item&&!o.done)&&(!best||c.pat/c.max<best.pat/best.max))best=c}
+  if(!best)return false;
+  const idx=best.order.findIndex(o=>o.k===item&&!o.done);best.order[idx].done=true;
+  const lineEl=best.el.querySelectorAll(".line")[idx];
+  fly(fromEl,lineEl,ICO[item]());sfx.serve();
+  setTimeout(()=>lineEl.classList.add("done"),300);
+  if(best.order.every(o=>o.done))setTimeout(()=>pay(best),320);
+  return true;
+}
+function pay(c){
+  const base=c.order.reduce((s,o)=>s+PRICE[o.k],0),tip=Math.round(base*.6*Math.max(0,c.pat/c.max));
+  G.coins+=base+tip;G.served++;sfx.coin();floatText(c.el,"+"+num(base+tip));leave(c);hud();
+}
+function leave(c){c.leaving=true;c.el.classList.add("leave");setTimeout(()=>{c.el.remove();if(G&&G.seats[c.seat]===c)G.seats[c.seat]=null},450)}
+
+function hud(){
+  $("#hudCoins").textContent=num(G.coins);
+  $("#goalFill").style.width=Math.min(100,G.coins/G.L.expert*100)+"%";
+  $("#hudGuests").textContent=num(G.L.n-G.served-G.lost);
+}
+function update(dt){
+  const C=G.C;
+  for(const s of G.cups)if(s.state==="cook"){s.t+=dt;if(s.t>=C.pour){setSlot(s,"ready");tone(740,.06,"sine",.04)}}
+  for(const [arr,cook,burn] of [[G.saj,C.sajCook,C.sajBurn],[G.grill,C.grillCook,C.grillBurn]])for(const s of arr){
+    if(s.state==="cook"){s.t+=dt;if(s.t>=cook){setSlot(s,"ready");tone(880,.07,"sine",.04)}}
+    else if(s.state==="ready"){s.t+=dt;s.el.classList.toggle("warn",s.t>burn*.55);if(s.t>=burn){setSlot(s,"burnt");sfx.burn()}}
+  }
+  for(const s of [...G.cups,...G.saj,...G.grill]){if(!s.el)continue;const i=s.el.querySelector(".bar i");
+    if(s.state==="cook")i.style.width=Math.min(100,s.t/(s.kind==="cups"?C.pour:s.kind==="saj"?C.sajCook:C.grillCook)*100)+"%";
+    else if(s.state==="ready"&&s.kind!=="cups")i.style.width=Math.max(0,100-s.t/(s.kind==="saj"?C.sajBurn:C.grillBurn)*100)+"%"}
+  for(const c of G.seats){if(!c||c.leaving)continue;c.pat-=dt;const r=Math.max(0,c.pat/c.max);
+    c.bar.style.transform=`scaleX(${r})`;c.bar.style.background=r>.5?"var(--palm)":r>.25?"var(--saffron)":"var(--warn)";
+    if(c.pat<=0){G.lost++;c.el.classList.add("angry");sfx.angry();floatText(c.el,"😠");leave(c);hud()}}
+  G.nextSpawn-=dt;
+  if(G.spawned<G.L.n&&G.nextSpawn<=0){if(spawn())G.nextSpawn=rand(...G.L.spawn);else G.nextSpawn=.6}
+  if(G.spawned>=G.L.n&&G.seats.every(c=>!c)&&!G.ending){G.ending=true;setTimeout(finish,700)}
+}
+function starsFor(g){if(g.coins<g.L.goal)return 0;return 1+(g.lost===0?1:0)+(g.coins>=g.L.expert?1:0)}
+function finish(){
+  if(!G)return;G.over=true;
+  const st=starsFor(G),li=G.li;
+  S.wallet+=G.coins;S.stars[li]=Math.max(S.stars[li]||0,st);save();
+  const hasNext=li+1<LEVELS.length&&st>0;
+  showCard(`<h3>${st?t("win"):t("lose")}</h3><div class="bigstars">${[0,1,2].map(i=>i<st?"<b>★</b>":"★").join("")}</div>
+   <dl class="stats"><dt>${t("earned")}</dt><dd>${num(G.coins)} ${t("sar")}</dd><dt>${t("goal")}</dt><dd>${num(G.L.goal)} · ★★★ ${num(G.L.expert)}</dd><dt>${t("served")}</dt><dd>${num(G.served)}</dd><dt>${t("lost")}</dt><dd>${num(G.lost)}</dd></dl>
+   <div class="btns">${hasNext?`<button class="btn primary" type="button" data-act="next">${t("next")}</button>`:""}<button class="btn ${hasNext?"":"primary"}" type="button" data-act="retry">${t("retry")}</button><button class="btn" type="button" data-act="map">${t("map")}</button></div>`);
+  if(st)sfx.coin();
+}
+function showCard(inner){$("#overlay").innerHTML=`<div class="card"><div class="sadu"></div><div class="card-body">${inner}</div></div>`;$("#overlay").hidden=false;const b=$("#overlay .btn");if(b)b.focus()}
+function pause(){if(!G||G.over)return;G.paused=true;showCard(`<h3>${t("paused")}</h3><div class="btns"><button class="btn primary" type="button" data-act="resume">${t("resume")}</button><button class="btn" type="button" data-act="retry">${t("retry")}</button><button class="btn" type="button" data-act="map">${t("quit")}</button></div>`)}
+function toMenu(){G=null;$("#overlay").hidden=true;$("#game").hidden=true;$("#menu").hidden=false;$("#fx").innerHTML="";renderMenu()}
+$("#overlay").addEventListener("click",e=>{const b=e.target.closest("[data-act]");if(!b)return;sfx.tap();const a=b.dataset.act,li=G?G.li:0;
+  if(a==="resume"){G.paused=false;$("#overlay").hidden=true}
+  else if(a==="retry")startLevel(li);
+  else if(a==="next")startLevel(li+1);
+  else toMenu()});
+$("#pauseBtn").addEventListener("click",pause);
+$("#hintClose").addEventListener("click",()=>{$("#hint").hidden=true});
+document.addEventListener("visibilitychange",()=>{if(document.hidden&&G&&!G.paused&&!G.over)pause()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&G&&!G.over){if(G.paused){G.paused=false;$("#overlay").hidden=true}else pause()}});
+
+let last=performance.now();
+function loop(now){const dt=Math.min(.1,(now-last)/1000);last=now;if(G&&!G.paused&&!G.over)update(dt);requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+applyLang();
+})();
+</script>
