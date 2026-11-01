@@ -35,7 +35,9 @@
   .intro p { color: var(--muted); font-size: 19px; margin: 0; }
   .games { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; padding-bottom: 64px; }
   .game { background: var(--g-bg); color: var(--g-ink); border-radius: 30px; padding: 30px; display: flex; flex-direction: column; gap: 18px; min-height: 360px; position: relative; overflow: hidden; }
-  .game > *:not(.tiles) { position: relative; z-index: 1; }
+  .game > *:not(.tiles):not(.motif) { position: relative; z-index: 1; }
+  .motif { position: absolute; z-index: 0; inset-inline-end: -34px; bottom: -34px; width: 150px; height: 150px; opacity: .5; pointer-events: none; overflow: hidden; }
+  .motif svg { width: 100%; height: 100%; display: block; }
   .game header { display: flex; align-items: center; gap: 16px; }
   .game header img { width: 76px; height: 76px; border-radius: 18px; flex: none; box-shadow: 0 10px 24px -10px rgba(0,0,0,.45); }
   .game h2 { margin: 0; font-size: 28px; font-weight: 900; line-height: 1.15; }
@@ -107,7 +109,7 @@
         <a class="btn primary" href="tnt/" data-ar-href="tnt/ar/"><span class="en">See TNT: Try Not To</span><span class="ar">اكتشف TNT: Try Not To</span></a>
         <a class="btn ghost" href="tnt/privacy/" data-ar-href="tnt/ar/privacy/"><span class="en">Privacy</span><span class="ar">الخصوصية</span></a>
       </div>
-      <div class="tiles" aria-hidden="true"><i style="background:#00f5d4"></i><i style="background:#00f5d4"></i><i style="background:#ffd93d"></i><i style="background:#00f5d4"></i><i style="background:#ff6b6b"></i><i style="background:#00f5d4"></i><i style="background:#00f5d4"></i><i style="background:#ffd93d"></i><i style="background:transparent"></i></div>
+      <div class="motif" aria-hidden="true"><svg viewBox='0 0 200 200'><defs><linearGradient id='tnt-ring' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#ff5a4e'/><stop offset='.5' stop-color='#ffb03a'/><stop offset='1' stop-color='#b794f6'/></linearGradient><radialGradient id='tnt-dot'><stop offset='0' stop-color='#fff4d6'/><stop offset='.45' stop-color='#ff9a3c'/><stop offset='1' stop-color='#ff9a3c' stop-opacity='0'/></radialGradient></defs><rect x='12' y='12' width='176' height='176' rx='26' fill='none' stroke='url(#tnt-ring)' stroke-width='3.5'/><rect x='25' y='25' width='150' height='150' rx='20' fill='none' stroke='#ffffff' stroke-opacity='.28' stroke-width='1.2' stroke-dasharray='5 5'/><rect x='48' y='48' width='104' height='104' rx='12' fill='#00f5d4' fill-opacity='.1' stroke='#00f5d4' stroke-width='3'/><circle cx='100' cy='100' r='22' fill='url(#tnt-dot)'/></svg></div>
     </article>
   </section>
 </div>
