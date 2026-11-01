@@ -1,0 +1,34 @@
+/* MINO Grid hero: playable 3x3 demo */
+/* ---------- playable mini puzzle ---------- */
+.toy { background: var(--card); border-radius: 30px; padding: 24px; box-shadow: var(--shadow); }
+.toy-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 12px; }
+.goal { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); font-weight: 600; }
+.goal-grid { display: grid; grid-template-columns: repeat(3, 12px); gap: 3px; padding: 5px; background: var(--row); border-radius: 7px; }
+.goal-grid i { width: 12px; height: 12px; border-radius: 3px; }
+.moves { font-size: 13px; color: var(--muted); font-weight: 600; }
+.board {
+  position: relative; width: 100%; aspect-ratio: 1;
+  background: var(--row); border-radius: 22px; padding: 4%;
+}
+.board-inner { position: relative; width: 100%; height: 100%; }
+.tile {
+  position: absolute; width: 30.66%; height: 30.66%; border: 0; padding: 0; cursor: pointer;
+  border-radius: 20%;
+  box-shadow: inset 0 -4px 0 rgba(0,0,0,.06), 0 6px 14px -8px rgba(107,84,120,.6);
+  transition: transform .22s cubic-bezier(.3,.7,.3,1), filter .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.tile:hover { filter: brightness(1.04); }
+.tile.locked-out { cursor: default; }
+.tile.nudge { animation: nudge .25s; }
+@keyframes nudge { 30% { translate: 3px 0; } 60% { translate: -3px 0; } }
+.toy-foot { display: flex; justify-content: space-between; align-items: center; margin-top: 16px; min-height: 40px; gap: 12px; }
+.status { font-weight: 700; font-size: 15px; }
+.status.win { color: var(--accent-ink); }
+.btn {
+  font: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
+  background: var(--c1); color: #3a2147; border: 0; padding: 9px 18px; border-radius: 999px;
+}
+.btn:hover { filter: brightness(1.04); }
+.btn.ghost { background: transparent; box-shadow: inset 0 0 0 1.5px var(--c1); color: var(--ink); }
+
